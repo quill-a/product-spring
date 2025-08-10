@@ -2,6 +2,7 @@ package dev.quilla.productspring;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.ApplicationContext;
 
 import java.util.List;
 
@@ -9,12 +10,15 @@ import java.util.List;
 public class ProductSpringApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(ProductSpringApplication.class, args);
+        ApplicationContext context = SpringApplication.run(ProductSpringApplication.class, args);
 
-        List<Product> products = service.getAllProducts();
-        for(Product p : products) {
-            System.out.println(p);
-        }
+        ProductService service = context.getBean(ProductService.class);
+        service.getAllProducts().forEach(System.out::println);
+
+//        List<Product> products = service.getAllProducts();
+//        for(Product p : products) {
+//            System.out.println(p);
+//        }
     }
 
 }
